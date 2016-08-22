@@ -44,12 +44,14 @@ def get_tweets():
     to_json = get_it.json()
     return to_json
 
+
 def tweet_formatter():
     json_data = get_tweets()
     for i in json_data:
+        print("")
         print(i['poster'], "<" + str(datetime.datetime.utcfromtimestamp(int(i['timestamp']))) + ">:", i['content'])
-# payload = {"content": "Do. Or do not. There is no try.", "poster": "Yoda"}
-# post_it = requests.post('http://127.0.0.1:9876/tweet', json=payload)
+    print("")
+
 
 def post_tweet(message):
     message = str(message)
@@ -58,10 +60,11 @@ def post_tweet(message):
 
 
 def menu():
-    print('Available commands : \n -refresh : Refresh the lates tweets.\n -exit : Exit the program.\n -post : Post a tweet.')
+    print('Available commands : \n refresh : Refresh the lates tweets.\n exit : Exit the program.\n post : Post a tweet.')
     command = input('command: ')
     return command
 
+tweet_formatter()
 while True:
     try:
         command = menu()
@@ -72,6 +75,7 @@ while True:
         elif command == 'post':
             message = input('Type your message: ')
             post_tweet(message)
+            tweet_formatter()
     except EOFError:
         exit()
     except KeyboardInterrupt:
