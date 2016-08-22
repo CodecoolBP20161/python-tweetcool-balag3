@@ -1,5 +1,9 @@
 import argparse
 import ipaddress
+import requests
+import json
+import datetime
+
 
 
 parser = argparse.ArgumentParser()
@@ -27,4 +31,15 @@ if not(1024 < server["port"] < 65535):
 
 server["address"] = 'http://' + server["host"].compressed + ':' + str(server["port"])
 
+
+def tweet_formatter(json_data):
+    for i in json_data:
+        print(i['poster'], "<" + str(datetime.datetime.utcfromtimestamp(int(i['timestamp']))) + ">:", i['content'])
+
 # Logic starts here... somewhere..
+my_route = server["address"]+"/tweet"
+# payload = {"content": "Do. Or do not. There is no try.", "poster": "Yoda"}
+# post_it = requests.post('http://127.0.0.1:9876/tweet', json=payload)
+get_it = requests.get(my_route)
+x = get_it.json()
+tweet_formatter(x)
