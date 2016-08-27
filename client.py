@@ -36,7 +36,6 @@ server["address"] = 'http://' + server["host"].compressed + ':' + str(server["po
 
 my_route = server["address"]+"/tweet"
 user = 'code'
-# y = subprocess.check_output('whoami')
 
 
 def get_tweets():
